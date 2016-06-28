@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+
+<style>
+	.full, body {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
+	body {
+		background-color: #000;
+		text-align: center;
+		overflow: hidden;
+	}
+
+	.glow-sphere-snes {
+		display: inline-block;
+		width: 500px;
+		height: 500px;
+		border-radius: 50%;
+		box-shadow:
+			inset 0 0 150px #fff,
+
+			inset 20px 0 20px #0f0,    /* left, green */
+			inset -20px 0 20px #f00,   /* right, red */
+			inset 0 20px 20px #00f,    /* top, blue */
+			inset 0 -20px 20px #ff0,   /* bottom, yellow */
+
+			0 0 50px #fff,      /* outer white */
+			-20px 0 80px #0f0,  /* left, green */
+			20px 0 80px #f00,   /* right, red */
+			0 -20px 80px #00f,  /* top, blue */
+			0 20px 80px #ff0;
+
+	}
+
+	.pulsed-glow {
+		animation: pulse 3s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite alternate;
+		-webkit-transform: translate3d(0, 0, 0);
+	}
+	.pulsed-glow.s05 {
+		animation: pulse 5s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite alternate;
+	}
+	.pulsed-glow.s07 {
+		animation: pulse 7s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite alternate;
+	}
+	@keyframes pulse {
+		0% {
+			box-shadow: none;
+		}
+	}
+
+	/* durations */
+	.s05 .inhale {
+		animation: fade_in_inhale 10s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+	}
+	.s07 .inhale {
+		animation: fade_in_inhale 14s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+	}
+	.s05 .exhale {
+		animation: fade_in_exhale 10s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+	}
+	.s07 .exhale {
+		animation: fade_in_exhale 14s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+	}
+
+	.inhale {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		top: 50px;
+		opacity: 0;
+		animation: fade_in_inhale 6s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+		-webkit-transform: translate3d(0, 0, 0);
+	}
+	@keyframes fade_in_inhale {
+		0% {
+			top: 50px;
+			opacity: 0;
+		}
+		40% {
+			top: 0;
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
+		100% {
+			top: 50px;
+			opacity: 0;
+		}
+	}
+	@keyframes fade_in_exhale {
+		0% {
+			opacity: 0;
+		}
+		40% {
+			top: -50px;
+			opacity: 0;
+		}
+		90% {
+			top: 0;
+			opacity: 1;
+		}
+		100% {
+			top: 0;
+			opacity: 0;
+		}
+	}
+	.exhale {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		top: -50px;
+		opacity: 0;
+		animation: fade_in_exhale 6s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+		-webkit-transform: translate3d(0, 0, 0);
+	}
+
+	.glow-text {
+		text-shadow:
+			0 0 12px #fff,
+			0 0 36px #fff;
+	}
+</style>
+
+</head>
+<body>
+
+	<div class="centered glow-sphere-snes pulsed-glow s05">
+		<!--<div class="full" style="padding: 30px;">
+			<div class="full"><div class="inhale"><div class="glow-text">in</div></div></div>
+			<div class="full"><div class="exhale"><div class="glow-text">out</div></div></div>
+		</div>-->
+	</div>
+
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="https://rawgit.com/DanielHoffmann/jquery-bigtext/master/jquery-bigtext.js"></script>
+	<script>
+
+		// https://github.com/DanielHoffmann/jquery-bigtext
+		$(".centered").bigText({});
+
+	</script>
+</body>
+</html>

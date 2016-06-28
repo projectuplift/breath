@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+<head>
+
+<link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.6.3/font-awesome.min.css" integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJtE" crossorigin="anonymous">
+
+<style>
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+	.full, body {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		padding: 0;
+		margin: 0;
+	}
+	body {
+		background-color: #000;
+		text-align: center;
+		overflow: hidden;
+	}
+
+	/* durations */
+	.s05 .inhale {
+		animation: fade_in_inhale 10s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+	}
+	.s07 .inhale {
+		animation: fade_in_inhale 14s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+	}
+	.s05 .exhale {
+		animation: fade_in_exhale 10s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+	}
+	.s07 .exhale {
+		animation: fade_in_exhale 14s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+	}
+
+	.inhale {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		top: 1em;
+		opacity: 0;
+		animation: fade_in_inhale 6s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+	}
+	@keyframes fade_in_inhale {
+		0% {
+			top: 0.5em;
+			opacity: 0;
+		}
+		40% {
+			top: 0;
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
+		100% {
+			top: 0.5em;
+			opacity: 0;
+		}
+	}
+	@keyframes fade_in_exhale {
+		0% {
+			opacity: 0;
+		}
+		40% {
+			top: -0.5em;
+			opacity: 0;
+		}
+		90% {
+			top: 0;
+			opacity: 1;
+		}
+		100% {
+			top: 0;
+			opacity: 0;
+		}
+	}
+	.exhale {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		top: -0.5em;
+		opacity: 0;
+		animation: fade_in_exhale 6s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+	}
+
+	.glow-text {
+		text-shadow:
+			0 0 12px #fff,
+			0 0 36px #fff;
+	}
+	.simple-sphere {
+		border-radius: 50%;
+		border: 10px solid #333;
+		width: 400px;
+		height: 400px;
+	}
+	.simple-sphere-pulse {
+		border-radius: 50%;
+		border: 10px solid #FFF;
+		width: 400px;
+		height: 400px;
+		animation: sphere_scale 5s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite alternate;
+	}
+
+	@keyframes sphere_scale {
+		0% {
+			transform: scale3d(1, 1, 1);
+		}
+		100% {
+			transform: scale3d(1.5, 1.5, 1);
+		}
+	}
+	.exhale-container, .inhale-container {
+		position: absolute;
+		top: 20%;
+		bottom: 20%;
+		left: 20%;
+		right: 20%;
+	}
+	.cell {
+		border-spacing: 0;
+		display: table-cell;
+		color: white;
+		vertical-align: middle;
+		text-align: center;
+		border-collapse: collapse;
+	}
+	.ftable {
+		display: table;
+		border-spacing: 0;
+		border-collapse: collapse;
+	}
+	.about {
+		position: absolute;
+		bottom: 0.2em;
+		right: 0.2em;
+		color: #333;
+		width: 1em;
+		height: 1em;
+		text-decoration: none;
+		transition: color 300ms cubic-bezier(0.445, 0.050, 0.550, 0.950);
+	}
+	.about:hover {
+		color: #FFF;
+	}
+	#about-box p {
+		padding: 0.5em 2em;
+		font-size: 0.4em;
+		color: #AAA;
+	}
+	#about-box a {
+		color: #0AA;
+	}
+	#about-box {
+		position: absolute;
+		border-radius: 1em;
+		bottom: 1.4em;
+		right: 1.4em;
+		top: 1.4em;
+		left: 1.4em;
+		opacity: 0;
+		overflow: hidden;
+		background-color: #222;
+		border: 10px solid #555;
+		transform: scale3d(0, 0, 1);
+		transition: all 500ms cubic-bezier(0.445, 0.050, 0.550, 0.950);
+	}
+	#about-box.visible {
+		opacity: 0.95;
+		transform: scale3d(1, 1, 1);
+	}
+</style>
+
+</head>
+<body>
+
+	<div class="centered s05 simple-sphere"></div>
+	<div class="centered s05 simple-sphere-pulse"></div>
+
+	<div class="centered s05 ftable">
+		<div class="cell inhale glow-text">
+		in
+		</div>
+	</div>
+
+	<div class="centered s05 ftable">
+		<div class="cell exhale glow-text">
+		out
+		</div>
+	</div>
+
+	<a href="#" class="about fa fa-fw fa-question-circle"></a>
+	<div id="about-box">
+		<p><b>Breath</b> is a simple way to discover calm:<br/>breathe in as the circle grows,<br/>breathe out as it gets smaller.
+		<p>Learn more about how you can find and share peace of mind at <a href="http://www.uplift.is">www.Uplift.is</a>.</p>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script>
+
+		function parseQuery(){
+			// http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+			var qd = {};
+			location.search.substr(1).split("&").forEach(function(item) {
+				var s = item.split("="),
+					k = s[0],
+					v = s[1] && decodeURIComponent(s[1]);
+					(k in qd) ? qd[k].push(v) : qd[k] = [v]
+			});
+			return qd;
+		}
+
+		var query = parseQuery();
+		if( query.hasOwnProperty('inhale') ){
+			$('.inhale').html( query.inhale );
+		}
+		if( query.hasOwnProperty('exhale') ){
+			$('.exhale').html( query.exhale );
+		}
+
+		function onResize(){
+
+			var w = $('body').width(),
+				h = $('body').height(),
+				size = Math.min( w, h )*0.1;
+
+			$('body').css({
+				'font-size': size+'px'
+			});
+
+			$('.centered').each(function(i,el){
+				var $el = $(el),
+					  w = $el.parent().width(),
+					  h = $el.parent().height();
+				var size = Math.min( w, h )*0.5;
+
+				$el.css( {
+					width: Math.round(size)+'px',
+					height: Math.round(size)+'px',
+					position: 'absolute',
+					top: Math.round((h*0.5-size*0.5))+'px',
+					left: Math.round((w*0.5-size*0.5))+'px'
+				} );
+			});
+
+		}
+
+		$(window).on('resize',onResize);
+		onResize();
+
+		$('.about').on('click', function(){
+			var $about = $('#about-box');
+			if( $about.hasClass('visible') ){
+				$about.removeClass( 'visible' );
+			}else{
+				$about.addClass( 'visible' );
+			}
+		});
+
+	</script>
+</body>
+</html>
