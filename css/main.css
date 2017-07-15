@@ -198,6 +198,14 @@ html {
 		opacity: 0.95;
 		transform: scale3d(1, 1, 1);
 	}
+  .close-dialog{
+		position: absolute;
+		right: 10px;
+		top: 8px;
+		font-size: 32px !important;
+    color: #AAA;
+		cursor: pointer;
+  }
 	#about-box {
 		overflow: hidden;
 	}

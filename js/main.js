@@ -30,20 +30,29 @@ $(document).ready(function() {
 	$(window).on('resize',onResize);
 	onResize();
 
-	// what are this? for closing the boxes?
-	// TODO: Rework bc right now boxes only close if you click again on their icon
-	// could be more intuitive, close when clicked outside the box
+// Controls for opening and closing the dialogs
 	$(document).on('keydown.close-dialog',function(e){
-		// excape key, keep.
+		// escape key hides the dialog
 		if( e.keyCode === 27 ){
 			$('.dialog').removeClass( 'visible' );
 		}
 	});
-
+	// menu click hides the dialog
 	$('.menu').on('click', function(){
 		$('.dialog').removeClass( 'visible' );
 	});
+	// click outside hides the dialog
+	$('.overlay-container').on('click', function(e) {
+		if ($(e.target).hasClass('overlay-container')) {
+			$('.dialog').removeClass('visible');
+		}
+	});
+	// clicking x icon hides dialog
+	$('.close-dialog').on('click', function() {
+		$('.dialog').removeClass('visible');
+	});
 
+	// About Dialog
 	$('#btn-about').on('click', function(){
 		var $about = $('#about-box');
 		if( $about.hasClass('visible') ){
@@ -54,6 +63,8 @@ $(document).ready(function() {
 		}
 		return false;
 	});
+
+	// Settings Dialog
 	$('#btn-settings').on('click', function(){
 		var $box = $('#settings-box');
 		if( $box.hasClass('visible') ){
@@ -65,7 +76,18 @@ $(document).ready(function() {
 		return false;
 	});
 
-// Handler for setting custom inhale/exhale text
+	// Timer Dialog
+	$( '#timer' ).on('click', function(){
+		var $timer = $('#timer-dialog');
+		if( $timer.hasClass('visible') ){
+			$timer.removeClass( 'visible' );
+		}else{
+			$('.dialog').removeClass( 'visible' );
+			$timer.addClass( 'visible' );
+		}
+		return false;
+	});
+
 	$('#btn-setting-ok').on('click',function(){
 		var newIn = $('#in-inhale').val();
 		var newOut = $('#in-exhale').val();
@@ -145,16 +167,6 @@ $(document).ready(function() {
 				'max': 20 * 60
 			}
 		});
-	});
-	$( '#timer' ).on('click', function(){
-		var $timer = $('#timer-dialog');
-		if( $timer.hasClass('visible') ){
-			$timer.removeClass( 'visible' );
-		}else{
-			$('.dialog').removeClass( 'visible' );
-			$timer.addClass( 'visible' );
-		}
-		return false;
 	});
 
 	// Show the about box when presented
