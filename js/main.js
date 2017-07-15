@@ -79,50 +79,55 @@ $(document).ready(function() {
 		$('.dialog').removeClass('visible');
 	});
 
-// handling the timer
-// TODO: Refactor this simpler. If we don't need to deal with actual timestrings we can probably do away with the date objects
-	var globalTimer = null;
-	var globalStartTime = 0;
-	var globalEndTime = 0;
-	$('#btn-timer-set').on('click',function(){
-		if( globalTimer ){
-			clearInterval( globalTimer );
-		}
-		globalStartTime = (new Date()).getTime();
-		globalEndTime = (new Date()).getTime()+timeStrToSeconds($('#slider-time')[0].noUiSlider.get())*1000;
-		globalTimer = setInterval( function(){
-			var time = (new Date()).getTime();
-			if( time > globalEndTime ){
-				clearInterval( globalTimer );
-				globalTimer = null;
-				$('#timer').html('complete');
-			}else{
-				var remainingMs = globalEndTime - time;
-				var seconds = remainingMs / 1000;
-				var m = Math.floor(seconds / 60);
-				var s = Math.floor(seconds - m*60);
-				if( m < 10 ){ m = '0'+m; }
-				if( s < 10 ){ s = '0'+s; }
-				$('#timer').html(m+':'+s);
-			}
-		}, 30 );
-		$('.dialog').removeClass( 'visible' );
-	});
-
+// Helpers for time string formatting
 	function secondsToTimeStr( value ){
 		var m = Math.floor(value / 60);
 		var s = Math.floor(value - m*60);
-		if( s < 10 ){ s = '0'+s; }
+		if ( s < 10 ) { s = '0' + s; }
 		return m+':'+s;
 	}
 	function timeStrToSeconds( value ){
 		var parts = value.split(':');
 		var m = parseInt( parts[0] );
 		var s = parseInt( parts[1] );
-		return 60*m + s;
+		return 60 * m + s;
+	}
+	function formatTimerReadout (seconds) {
+		var timestring = secondsToTimeStr(seconds);
+		return timestring.length < 5 ? "0" + timestring : timestring;
 	}
 
-// handling the timer setter
+// Handling the timer
+	var globalTimer = null;
+	$('#btn-timer-set').on('click',function(){
+		// Reset existing timers
+		var $timer = $('#timer');
+		if (globalTimer) {
+			clearInterval(globalTimer);
+		}
+		// Get seconds for timer
+		var timerSeconds = timeStrToSeconds($('#slider-time')[0].noUiSlider.get());
+		var timerReadout = formatTimerReadout(timerSeconds);
+		$timer.text(timerReadout);
+
+		// Set interval
+		globalTimer = setInterval(function() {
+			timerSeconds = --timerSeconds;
+
+			if (timerSeconds < 0) {
+				clearInterval(globalTimer);
+				$timer.text('complete');
+
+			} else {
+				timerReadout = formatTimerReadout(timerSeconds);
+				$timer.text(timerReadout);
+			}
+		}, 1000)
+		$('.dialog').removeClass( 'visible' );
+	});
+	// Features to consider: Make timer visible while active; audio cue when timer complete (soft chime?)
+
+// Handling the time slider
 	$(function(){
 		noUiSlider.create($('#slider-time')[0], {
 			start: '5:00',
@@ -136,8 +141,8 @@ $(document).ready(function() {
 			},
 			step: 10,
 			range: {
-				'min': 1 *60,
-				'max': 20*60
+				'min': 60,
+				'max': 20 * 60
 			}
 		});
 	});
