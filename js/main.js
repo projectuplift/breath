@@ -1,26 +1,4 @@
 $(document).ready(function() {
-	// Parsing custom inhale-exhale text from url.
-	// TODO: refactor inhale-exhale text setter to not need all this
-	function parseQuery(){
-		// http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-		var qd = {};
-		location.search.substr(1).split("&").forEach(function(item) {
-			var s = item.split("="),
-				k = s[0],
-				v = s[1] && decodeURIComponent(s[1]);
-				(k in qd) ? qd[k].push(v) : qd[k] = [v]
-		});
-		return qd;
-	}
-
-	var query = parseQuery();
-	if( query.hasOwnProperty('inhale') ){
-		$('.inhale').html( query.inhale );
-	}
-	if( query.hasOwnProperty('exhale') ){
-		$('.exhale').html( query.exhale );
-	}
-
 // Resizing animation controls for text?
 	function onResize(){
 
@@ -87,17 +65,18 @@ $(document).ready(function() {
 		return false;
 	});
 
-// click handler setting inhale-exhale text
-// TODO: Refactor so we're not depending on url params
+// Handler for setting custom inhale/exhale text
 	$('#btn-setting-ok').on('click',function(){
-		var inhale = $('#in-inhale').val();
-		var exhale = $('#in-exhale').val();
-		var time = 0;
-		var variables = [];
-		if( inhale ){ variables.push( 'inhale='+inhale ); }
-		if( exhale ){ variables.push( 'exhale='+exhale ); }
-		if( time ){ variables.push( 'duration='+exhale ); }
-		window.location.href = window.location.href.split('?')[0] +'?'+ variables.join('&');
+		var newIn = $('#in-inhale').val();
+		var newOut = $('#in-exhale').val();
+
+		if (newIn) {
+			$('.inhale').text(newIn);
+		}
+		if (newOut) {
+			$('.exhale').text(newOut);
+		}
+		$('.dialog').removeClass('visible');
 	});
 
 // handling the timer
