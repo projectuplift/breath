@@ -140,6 +140,11 @@ $(document).ready(function() {
 				clearInterval(globalTimer);
 				$timer.text('complete');
 
+				// Sound option
+				if ($('#audio-setting').prop('checked')){
+					$('#timer-chime')[0].play();
+				}
+
 			} else {
 				timerReadout = formatTimerReadout(timerSeconds);
 				$timer.text(timerReadout);

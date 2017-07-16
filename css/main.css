@@ -231,11 +231,11 @@ html {
 		transition: opacity 3s cubic-bezier(0.445, 0.050, 0.550, 0.950);
 	}
 
-	label, input {
+	label:not([for="audio-setting"]), input[type="text"] {
 		display: block;
 	}
 
-	input {
+	input[type="text"] {
 		border: none;
 		border-bottom: 0.2em solid #DDD;
 		color: #DDD;
@@ -256,7 +256,7 @@ html {
 		padding: 0em 1em;
 	}
 
-	.settings-inputs label {
+	label.settings-inputs {
 		padding-top: 0.5em;
 	}
 
@@ -311,7 +311,7 @@ html {
   position:relative;
   margin-bottom: 1em;
 }
-input {
+input[type="text"] {
   font-size:1.5em;
   padding:10px 10px 0 5px;
   display:block;
@@ -322,7 +322,7 @@ input {
 input:focus { outline:none; }
 
 /* LABEL ======================================= */
-label                {
+label:not([for="audio-setting"]){
   color:#AAA;
   font-size:1em;
   font-weight:normal;
@@ -335,8 +335,13 @@ label                {
   -webkit-transition:0.2s ease all;
 }
 
+label[for="audio-setting"]{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
 /* active state */
-input:focus ~ label, input:valid ~ label        {
+input:focus ~ label:not([for="audio-setting"]), input:valid ~ label:not([for="audio-setting"]) {
 	top: -1em;
 	font-size: 0.7em;
 	color: #AAA;
