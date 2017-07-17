@@ -1,5 +1,6 @@
 $(document).ready(function() {
-// Resizing animation controls for text?
+
+// Resize contents to fit window
 	function onResize(){
 
 		var w = $('body').width(),
@@ -31,34 +32,42 @@ $(document).ready(function() {
 	onResize();
 
 // Controls for opening and closing the dialogs
-	$(document).on('keydown.close-dialog',function(e){
+	function hideDialog () {
+		$('.dialog').removeClass('visible');
+	}
+
+	function showDialog(element) {
+		element.addClass('visible');
+	}
+
+	$(document).on('keydown.close-dialog', function(e){
 		// escape key hides the dialog
 		if( e.keyCode === 27 ){
-			$('.dialog').removeClass( 'visible' );
+			hideDialog();
 		}
 	});
 	// menu click hides the dialog
 	$('.menu').on('click', function(){
-		$('.dialog').removeClass( 'visible' );
+		hideDialog();
 	});
 	// click outside hides the dialog
 	$('.overlay-container').on('click', function(e) {
 		if ($(e.target).hasClass('overlay-container')) {
-			$('.dialog').removeClass('visible');
+			hideDialog();
 		}
 	});
 	// clicking x icon hides dialog
 	$('.close-dialog').on('click', function() {
-		$('.dialog').removeClass('visible');
+		hideDialog();
 	});
 
 	// About Dialog
 	$('#btn-about').on('click', function(){
 		var $about = $('#about-box');
-		if( $about.hasClass('visible') ){
-			$about.removeClass( 'visible' );
-		}else{
-			$('.dialog').removeClass( 'visible' );
+		if ($about.hasClass('visible') ){
+			hideDialog();
+		} else {
+			hideDialog();
 			$about.addClass( 'visible' );
 		}
 		return false;
@@ -67,10 +76,10 @@ $(document).ready(function() {
 	// Settings Dialog
 	$('#btn-settings').on('click', function(){
 		var $box = $('#settings-box');
-		if( $box.hasClass('visible') ){
-			$box.removeClass( 'visible' );
+		if ($box.hasClass('visible')){
+			hideDialog();
 		}else{
-			$('.dialog').removeClass( 'visible' );
+			hideDialog();
 			$box.addClass( 'visible' );
 		}
 		return false;
@@ -80,14 +89,15 @@ $(document).ready(function() {
 	$( '#timer' ).on('click', function(){
 		var $timer = $('#timer-dialog');
 		if( $timer.hasClass('visible') ){
-			$timer.removeClass( 'visible' );
+			hideDialog();
 		}else{
-			$('.dialog').removeClass( 'visible' );
+			hideDialog();
 			$timer.addClass( 'visible' );
 		}
 		return false;
 	});
 
+// Set custom texts
 	$('#btn-setting-ok').on('click',function(){
 		var newIn = $('#in-inhale').val();
 		var newOut = $('#in-exhale').val();
@@ -98,7 +108,7 @@ $(document).ready(function() {
 		if (newOut) {
 			$('.exhale').text(newOut);
 		}
-		$('.dialog').removeClass('visible');
+		hideDialog();
 	});
 
 // Helpers for time string formatting
@@ -150,9 +160,8 @@ $(document).ready(function() {
 				$timer.text(timerReadout);
 			}
 		}, 1000)
-		$('.dialog').removeClass( 'visible' );
+		hideDialog();
 	});
-	// Features to consider: Make timer visible while active; audio cue when timer complete (soft chime?)
 
 // Handling the time slider
 	$(function(){
@@ -174,8 +183,7 @@ $(document).ready(function() {
 		});
 	});
 
-	// Show the about box when presented
-	// May want to rework how that's happenning, idk.
+	// Show the menu on pageload
 	$(function(){
 		$('.menu').removeClass('highlighted');
 	});
