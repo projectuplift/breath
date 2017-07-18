@@ -111,6 +111,51 @@ $(document).ready(function() {
 		hideDialog();
 	});
 
+// Create shareable link for custom text
+	function formatUrl(inhale, exhale) {
+		var url = 'http://calm.af/?';
+		inhale = inhale ? encodeURIComponent(inhale) : 'in';
+		exhale = exhale ? encodeURIComponent(exhale) : 'out';
+
+		url += 'inhale=' + inhale + '&';
+		url += 'exhale=' + exhale;
+
+		return url;
+	}
+
+	var inText, outText;
+
+	$('#in-inhale, #in-exhale').on('keyup', function(e) {
+		if (e.target.id === 'in-inhale') {
+			inText = e.target.value;
+		} else {
+			outText = e.target.value;
+		}
+
+		$('#custom-link').text(formatUrl(inText, outText));
+
+	});
+	// tbh we could bind the inhale/exhale text directly to this and not need the button...
+
+// Parse custom text from url params
+	function parseQuery(){
+		// http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+		var parameters = {};
+		location.search.substr(1).split("&").forEach(function(param) {
+			var pair = param.split('=');
+			parameters[pair[0]] = decodeURIComponent(pair[1]);
+		});
+		return parameters;
+	}
+
+	var query = parseQuery();
+	if( query.hasOwnProperty('inhale') ){
+		$('.inhale').html( query.inhale );
+	}
+	if( query.hasOwnProperty('exhale') ){
+		$('.exhale').html( query.exhale );
+	}
+
 // Helpers for time string formatting
 	function secondsToTimeStr( value ){
 		var m = Math.floor(value / 60);

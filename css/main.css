@@ -167,6 +167,9 @@ html {
 		color: #FFF;
 	}
 
+	#about-box {
+		overflow: scroll;
+	}
 	#about-box p {
 		padding: 0.5em 2em;
 		font-size: 0.4em;
@@ -203,8 +206,10 @@ html {
     color: #AAA;
 		cursor: pointer;
   }
-	#about-box {
-		overflow: hidden;
+
+	.link-container {
+		padding-top: 20px;
+		padding-bottom: 20px;
 	}
 
 	.timer {
@@ -264,6 +269,10 @@ html {
 		margin: 0.2em 0 1em 0;
 	}
 
+	#custom-link {
+		word-wrap: break-word;
+	}
+
 	.overlay-container {
 		position: absolute;
 		top: 0;
@@ -312,7 +321,7 @@ input[type="text"] {
   font-size:1.5em;
   padding:10px 10px 0 5px;
   display:block;
-  width:300px;
+	width: 75%;
   border:none;
   border-bottom: 1px solid #757575;
 }
@@ -345,7 +354,7 @@ input:focus ~ label:not([for="audio-setting"]), input:valid ~ label:not([for="au
 }
 
 /* BOTTOM BARS ================================= */
-.bar    { position:relative; display:block; width:300px; }
+.bar    { position:relative; display:block; width:75%; }
 .bar:before, .bar:after     {
   content:'';
   height:2px;
