@@ -36,26 +36,25 @@ $(document).ready(function() {
 		$('.dialog').removeClass('visible');
 	}
 
-	function showDialog(element) {
-		element.addClass('visible');
-	}
-
 	$(document).on('keydown.close-dialog', function(e){
 		// escape key hides the dialog
 		if( e.keyCode === 27 ){
 			hideDialog();
 		}
 	});
+
 	// menu click hides the dialog
 	$('.menu').on('click', function(){
 		hideDialog();
 	});
+
 	// click outside hides the dialog
 	$('.overlay-container').on('click', function(e) {
 		if ($(e.target).hasClass('overlay-container')) {
 			hideDialog();
 		}
 	});
+
 	// clicking x icon hides dialog
 	$('.close-dialog').on('click', function() {
 		hideDialog();
@@ -135,7 +134,6 @@ $(document).ready(function() {
 		$('#custom-link').text(formatUrl(inText, outText));
 
 	});
-	// tbh we could bind the inhale/exhale text directly to this and not need the button...
 
 // Parse custom text from url params
 	function parseQuery(){
@@ -177,11 +175,11 @@ $(document).ready(function() {
 // Handling the timer
 	var globalTimer = null;
 	$('#btn-timer-set').on('click',function(){
-		// Reset existing timers
 		var $timer = $('#timer');
 		if (globalTimer) {
 			clearInterval(globalTimer);
 		}
+
 		// Get seconds for timer
 		var timerSeconds = timeStrToSeconds($('#slider-time')[0].noUiSlider.get());
 		var timerReadout = formatTimerReadout(timerSeconds);
