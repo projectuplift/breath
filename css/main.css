@@ -1,0 +1,402 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+	.full, body {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		padding: 0;
+		margin: 0;
+	}
+	body {
+		background-color: #000;
+		text-align: center;
+		overflow: hidden;
+    font-family: 'Quicksand', sans-serif;
+	}
+
+	/* durations */
+	.s05 .inhale {
+		animation: fade_in_inhale 10s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+	}
+	.s07 .inhale {
+		animation: fade_in_inhale 14s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+	}
+	.s05 .exhale {
+		animation: fade_in_exhale 10s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+	}
+	.s07 .exhale {
+		animation: fade_in_exhale 14s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+	}
+
+	.inhale {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		top: 1em;
+		opacity: 0;
+		animation: fade_in_inhale 6s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+	}
+	@keyframes fade_in_inhale {
+		0% {
+			top: 0.5em;
+			opacity: 0;
+		}
+		40% {
+			top: 0;
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
+		100% {
+			top: 0.5em;
+			opacity: 0;
+		}
+	}
+	@keyframes fade_in_exhale {
+		0% {
+			opacity: 0;
+		}
+		40% {
+			top: -0.5em;
+			opacity: 0;
+		}
+		90% {
+			top: 0;
+			opacity: 1;
+		}
+		100% {
+			top: 0;
+			opacity: 0;
+		}
+	}
+	.exhale {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		top: -0.5em;
+		opacity: 0;
+		animation: fade_in_exhale 6s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+	}
+
+	.glow-text {
+		text-shadow:
+			0 0 12px #fff,
+			0 0 36px #fff;
+	}
+	.simple-sphere {
+		border-radius: 50%;
+		border: 10px solid #333;
+		width: 400px;
+		height: 400px;
+	}
+	.simple-sphere-pulse {
+		border-radius: 50%;
+		border: 10px solid #FFF;
+		width: 400px;
+		height: 400px;
+		animation: sphere_scale 5s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite alternate;
+	}
+
+	@keyframes sphere_scale {
+		0% {
+			transform: scale3d(1, 1, 1);
+		}
+		100% {
+			transform: scale3d(1.5, 1.5, 1);
+		}
+	}
+	.exhale-container, .inhale-container {
+		position: absolute;
+		top: 20%;
+		bottom: 20%;
+		left: 20%;
+		right: 20%;
+	}
+	.cell {
+		border-spacing: 0;
+		display: table-cell;
+		color: white;
+		vertical-align: middle;
+		text-align: center;
+		border-collapse: collapse;
+	}
+	.ftable {
+		display: table;
+		border-spacing: 0;
+		border-collapse: collapse;
+	}
+	#btn-about {
+		position: absolute;
+		bottom: 0.2em;
+		right: 0.2em;
+		color: #AAA;
+		width: 1em;
+		height: 1em;
+		text-decoration: none;
+		transition: color 300ms cubic-bezier(0.445, 0.050, 0.550, 0.950);
+	}
+	#btn-about:hover {
+		color: #FFF;
+	}
+
+	#btn-settings {
+		position: absolute;
+		bottom: 0.2em;
+		left: 0.2em;
+		color: #AAA;
+		width: 1em;
+		height: 1em;
+		text-decoration: none;
+		transition: color 300ms cubic-bezier(0.445, 0.050, 0.550, 0.950);
+	}
+	#btn-settings:hover {
+		color: #FFF;
+	}
+
+	#about-box {
+		overflow: scroll;
+	}
+	#about-box p {
+		padding: 0.5em 2em;
+		font-size: 0.4em;
+		color: #AAA;
+	}
+	#about-box a {
+		color: #0AA;
+	}
+
+	.dialog {
+		border-radius: 4px;
+		opacity: 0;
+		background-color: #222;
+		border: 10px solid #555;
+		transform: scale3d(0, 0, 1);
+		transition: all 500ms cubic-bezier(0.445, 0.050, 0.550, 0.950);
+		position: absolute;
+		margin: auto;
+		top: 1em;
+		left: 0;
+		right: 0;
+		height: 480px;
+		width: 960px;
+	}
+	.dialog.visible {
+		opacity: 0.95;
+		transform: scale3d(1, 1, 1);
+	}
+  .close-dialog{
+		position: absolute;
+		right: 10px;
+		top: 8px;
+		font-size: 32px !important;
+    color: #AAA;
+		cursor: pointer;
+  }
+
+	.link-container {
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+
+	.timer {
+		position: absolute;
+		bottom: 0.2em;
+		width: 100%;
+		color: #AAA;
+		text-align: center;
+		cursor: pointer;
+	}
+
+	.menu:hover {
+		opacity: 1.0;
+		transition: opacity 0.5s cubic-bezier(0.445, 0.050, 0.550, 0.950);
+	}
+	.menu.highlighted {
+		opacity: 1.0;
+	}
+	.menu {
+		opacity: 0.05;
+		transition: opacity 3s cubic-bezier(0.445, 0.050, 0.550, 0.950);
+	}
+
+	label:not([for="audio-setting"]), input[type="text"] {
+		display: block;
+	}
+
+	input[type="text"] {
+		border: none;
+		border-bottom: 0.2em solid #DDD;
+		color: #DDD;
+		background: none;
+		font-size: 1.5em;
+	}
+
+	.settings-content {
+		color: #DDD;
+	}
+
+	.settings-content {
+		font-size: 0.3em;
+	}
+
+	.settings-inputs {
+		text-align: left;
+		padding: 0em 1em;
+	}
+
+	label.settings-inputs {
+		padding-top: 0.5em;
+	}
+
+	.settings-content > h2 {
+		text-align: left;
+		padding: 0.5em 0.5em;
+		border-bottom: 4px solid #555;
+		margin: 0.2em 0 1em 0;
+	}
+
+	#custom-link {
+		word-wrap: break-word;
+	}
+
+	.overlay-container {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		text-align: center;
+	}
+
+	button {
+		border: 0.2em solid #555;
+		color: #888;
+		width: 300px;
+		border-radius: 4px;
+		background-color: #333;
+		font-size: 1em;
+		transform: scale3d(1,1,1);
+		transition: all 0.2s cubic-bezier(0.445, 0.050, 0.550, 0.950);
+	}
+	button:hover, button:focus {
+		background-color: #CCC;
+		border: 0.2em solid #AAA;
+		color: #777;
+		transform: scale3d(1.1,1.1,1);
+	}
+	button:active {
+		transform: scale3d(0.95,0.95,1);
+	}
+
+@media (max-width: 960px) {
+	.dialog {
+		width: initial;
+	}
+}
+
+/*********************************************************************
+ https://scotch.io/tutorials/google-material-design-input-boxes-in-css3
+ ********************************************************************/
+
+/* form starting stylings ------------------------------- */
+.group {
+  position:relative;
+  margin-bottom: 1em;
+}
+input[type="text"] {
+  font-size:1.5em;
+  padding:10px 10px 0 5px;
+  display:block;
+	width: 75%;
+  border:none;
+  border-bottom: 1px solid #757575;
+}
+input:focus { outline:none; }
+
+/* LABEL ======================================= */
+label:not([for="audio-setting"]){
+  color:#AAA;
+  font-size:1em;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left: 5px;
+  top: 10px;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+
+label[for="audio-setting"]{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+/* active state */
+input:focus ~ label:not([for="audio-setting"]), input:valid ~ label:not([for="audio-setting"]) {
+	top: -1em;
+	font-size: 0.7em;
+	color: #AAA;
+}
+
+/* BOTTOM BARS ================================= */
+.bar    { position:relative; display:block; width:75%; }
+.bar:before, .bar:after     {
+  content:'';
+  height:2px;
+  width:0;
+  bottom:1px;
+  position:absolute;
+  background:#AAA;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%;
+}
+
+/* active state */
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+
+/* active state */
+input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+    from { background:#5264AE; }
+  to    { width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+    from { background:#5264AE; }
+  to    { width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+    from { background:#5264AE; }
+  to    { width:0; background:transparent; }
+}
