@@ -270,7 +270,8 @@ html {
 	}
 
 	#custom-link {
-		word-wrap: break-word;
+		width: 95%;
+		color: black;
 	}
 
 	.overlay-container {

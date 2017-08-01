@@ -131,7 +131,17 @@ $(document).ready(function() {
 			outText = e.target.value;
 		}
 
-		$('#custom-link').text(formatUrl(inText, outText));
+		$('#custom-link').val(formatUrl(inText, outText));
+
+	});
+
+	// One-click copy of custom link
+	$('#custom-link').on('click', function() {
+		$('#custom-link').select();
+		var copied = document.execCommand("copy");
+		if (copied) {
+			$('#copy-success').show().fadeOut(3000);
+		}
 
 	});
 
@@ -156,7 +166,7 @@ $(document).ready(function() {
 	$('.exhale').html( query.exhale );
 	$('#in-exhale').val(initExhale);
 
-	$('#custom-link').text(formatUrl(initInhale, initExhale));
+	$('#custom-link').val(formatUrl(initInhale, initExhale));
 
 
 // Helpers for time string formatting
