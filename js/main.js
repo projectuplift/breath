@@ -147,12 +147,17 @@ $(document).ready(function() {
 	}
 
 	var query = parseQuery();
-	if( query.hasOwnProperty('inhale') ){
-		$('.inhale').html( query.inhale );
-	}
-	if( query.hasOwnProperty('exhale') ){
-		$('.exhale').html( query.exhale );
-	}
+	var initInhale = query.inhale || 'in';
+	var initExhale = query.exhale || 'out';
+
+	$('.inhale').html(initInhale);
+	$('#in-inhale').val(initInhale);
+
+	$('.exhale').html( query.exhale );
+	$('#in-exhale').val(initExhale);
+
+	$('#custom-link').text(formatUrl(initInhale, initExhale));
+
 
 // Helpers for time string formatting
 	function secondsToTimeStr( value ){
