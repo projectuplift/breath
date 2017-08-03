@@ -131,7 +131,17 @@ $(document).ready(function() {
 			outText = e.target.value;
 		}
 
-		$('#custom-link').text(formatUrl(inText, outText));
+		$('#custom-link').val(formatUrl(inText, outText));
+
+	});
+
+	// One-click copy of custom link
+	$('#custom-link').on('click', function() {
+		$('#custom-link').select();
+		var copied = document.execCommand("copy");
+		if (copied) {
+			$('#copy-success').show().fadeOut(3000);
+		}
 
 	});
 
@@ -147,12 +157,17 @@ $(document).ready(function() {
 	}
 
 	var query = parseQuery();
-	if( query.hasOwnProperty('inhale') ){
-		$('.inhale').html( query.inhale );
-	}
-	if( query.hasOwnProperty('exhale') ){
-		$('.exhale').html( query.exhale );
-	}
+	var initInhale = query.inhale || 'in';
+	var initExhale = query.exhale || 'out';
+
+	$('.inhale').html(initInhale);
+	$('#in-inhale').val(initInhale);
+
+	$('.exhale').html( query.exhale );
+	$('#in-exhale').val(initExhale);
+
+	$('#custom-link').val(formatUrl(initInhale, initExhale));
+
 
 // Helpers for time string formatting
 	function secondsToTimeStr( value ){
